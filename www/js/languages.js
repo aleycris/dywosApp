@@ -19,6 +19,7 @@ var translations = {
     CONFIRM_PASSWORD: 'CONFIRMAR CONTRASEÑA',
     MALE: 'Masculino',
     FEMALE: 'Femenino',
+    HELLO: 'Hola,'
 /*        PUSH_UPS: 'Flexiones de pecho',
         OVERHEADPRESS: 'Presionar sobre la cabeza',
         OVERHEADARMCLAP: 'Aplauso por encima de la cabeza',

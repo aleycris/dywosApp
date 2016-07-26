@@ -37,6 +37,10 @@ a:hover {
 input {
     color: white !important;
 }
+.validation-valid
+{
+    display: none;
+}
 .title-image {
     margin-top: 8px;
     height: 27px;
@@ -81,10 +85,12 @@ input {
     border-color: #1E81DC;
     width: 90%;
 }
-
 .dywos input {
     border-bottom: 1px solid rgb(221,221,221);
     width: 90%;
+}
+.error p {
+    color: red;
 }
 
 /** LOGIN */
@@ -123,3 +129,10 @@ input {
     border: 4px solid #3F51B5;
 }
 
+/** HOME */
+.home {
+    background:url('../img/bg_login.png') no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+}

@@ -14,28 +14,24 @@
         <div class="padding center">
           <img src="img/icon.png" />
         </div>
-        <form name="login_form" class="" novalidate>
+        <form id="loginForm" name="LoginForm" schema="Login" validation-schema>
           <div class="list">
-            <label class="item item-input">
-              <input type="email" placeholder="{{'LOGIN_USERNAME' | translate}}" name="email" ng-model="user.email" required>
-            </label>
-            <label class="item item-input">
-              <input type="password" placeholder="{{'LOGIN_PASSWORD' | translate}}" name="password" ng-model="user.password" required>
-            </label>
+            <ion-input class="item item-input">
+              <input aria-label="Ingrese su email" message-id="email-message-error" name="email" ng-model="user.email" placeholder="{{'LOGIN_USERNAME' | translate}}" type="text"/>
+            </ion-input>
+            <div id="email-message-error" class="center error"></div>
+            <ion-input class="item item-input">
+                <input aria-label="Ingrese su contraseña" message-id="password-message-error" name="password" ng-model="user.password" placeholder="{{'LOGIN_PASSWORD' | translate}}" type="password" maxlength="8"/>
+            </ion-input>
+            <div id="password-message-error" class="center error"></div>
             <br>
             <div class="center">
                 <a ui-sref="app.forgot-password">{{'FORGOTPASS' | translate}}</a>
-                
                 <ion-toggle ng-model="remember" toggle-class="toggle-balanced">{{'REMEMBERME' | translate}}</ion-toggle>
-                
-                <button ng-click="loginEmail()" ng-class="{'pseudo-disabled':login_form.$invalid}" class="login button button-full button-assertive ink" ng-disabled="login_form.$invalid"> {{'LOGIN' | translate}}</button>
-
+                <button ng-click="loginEmail(LoginForm)" class="login button button-full button-assertive ink" type="submit" validation-submit="LoginForm"> {{'LOGIN' | translate}}</button>
                 <p ng-if="error" class="message error">{{error}}</p>
              <div>
           </div>       
-          
-         
-          
         </form>
       </div>
     </div>

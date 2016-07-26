@@ -4,14 +4,17 @@ angular.module('dywos.filters', []);
 angular.module('dywos.directives', []);
 angular.module('dywos.controllers', ['dywos.services']);
 angular.module('dywos.services', ['ngResource', 'base64']);
+angular.module('dywos.schemas', ['validation', 'validation.rule','validation.schema']);
 
 angular.module('dywos', 
                 ['ngCordova', 
+                'ngAria',
                 'ionic.contrib.drawer',
                 'ionic', 
                 'dywos.directives', 
                 'dywos.controllers', 
                 'dywos.services',
+                'dywos.schemas',
                 'nvd3ChartDirectives',
                 'ngCookies', 
                 'pascalprecht.translate',
@@ -49,9 +52,9 @@ angular.module('dywos',
         templateUrl: "templates/menu.html",
         controller: 'AppCtrl'
     })
-    .state('app.home', 
+    .state('app.login', 
     {
-      url: "/home",
+      url: "/login",
       views: 
       {
         'menuContent' :
@@ -73,7 +76,19 @@ angular.module('dywos',
           }
         }
     })
-    
+    .state('app.home', 
+    {
+      url: "/home",
+      views: 
+      {
+        'menuContent' :
+        {
+          templateUrl: "templates/home.html",
+          controller: 'LoginCtrl'
+        }
+      }
+    })
+
 /*
     .state('app.workout-category', {
       url: "/home/:categoryId",
@@ -298,7 +313,7 @@ angular.module('dywos',
   })
 */
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/home');
+  $urlRouterProvider.otherwise('/app/login');
 })
 
 .config(function($ionicConfigProvider) 
