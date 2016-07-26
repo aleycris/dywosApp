@@ -1,0 +1,75 @@
+<ion-view class="dywos signout">
+  <ion-nav-bar >
+    <ion-nav-back-button class="button-clear">
+      <i class="ion-arrow-left-c"></i> {{'BACK' | translate}}
+    </ion-nav-back-button>
+    <ion-nav-title class="title">
+      <span>{{'CREATE_ACCT' | translate}}</span>
+    </ion-nav-title>
+  </ion-nav-bar> 
+  <ion-content class="">
+    <ion-spinner ng-if="data.loading" class="spinner-on-load"></ion-spinner>
+    <div class="row form-wrapper">
+      <div class="col">      
+        <form name="signUpForm" novalidate ng-submit="signupEmail(signUpForm)" >
+          <div class="list">
+            <label class="item item-input split-view-input">
+              <input type="text" placeholder="{{'FIRSTNAME' | translate}}"  name="firstName" ng-model="user.firstName" required>
+            </label>
+            <label class="item item-input split-view-input">
+              <input type="text" placeholder="{{'LASTNAME' | translate}}"  name="lastName" ng-model="user.lastName" required>
+            </label>
+            <label class="item item-input split-view-input">
+              <ion-radio ng-model="choice" ng-value="'M'">{{'MALE' | translate}}</ion-radio>&nbsp;
+              <ion-radio ng-model="choice" ng-value="'F'">{{'FEMALE' | translate}}</ion-radio>
+            </label>
+            <label class="item item-input">
+              <input type="email" placeholder="{{'EMAIL' | translate}}" name="email" ng-model="user.email" required>
+            </label>
+            <label class="item item-input">
+              <input type="date" placeholder="{{'BIRTHDATE' | translate}}" name="email" ng-model="user.birthdate" required>
+            </label>
+            <label class="item item-input">
+              <input type="text" placeholder="{{'USERNAME' | translate}}" name="email" ng-model="user.username" required>
+            </label>
+            <label class="item item-input">
+              <input type="password" placeholder="{{'PASSWORD' | translate}}" name="email" ng-model="user.password" required show-hide-input>
+            </label>
+            <label class="item item-input">
+              <input type="password" placeholder="{{'CONFIRM_PASSWORD' | translate}}" name="email" required show-hide-input>
+            </label>          
+          </div>
+          <p ng-if="error" class="message error"> {{error}}</p>
+          <div class="error-container" 
+            ng-if="(signUpForm.password.$invalid || emailForm.password.$error.minlength || signUpForm.email.$invalid || signUpForm.firstName.$invalid || signUpForm.lastName.$invalid) && signUpForm.submitted">
+            <small class="message error" 
+                    ng-if="signUpForm.email.$error.required">
+                    {{'EMAILADDREQ' | translate}}
+            </small>
+            <small class="message error" 
+                    ng-if="signUpForm.password.$error.minlength">
+                    {{'PASSMUST' | translate}}
+            </small>
+            <small class="message error" 
+                    ng-if="signUpForm.firstName.$error.required">
+                    {{'FIRSTREQ' | translate}}
+            </small>
+            <small class="message error" 
+                    ng-if="signUpForm.lastName.$error.required">
+                    {{'LASTREQ' | translate}}
+            </small>
+          </div>
+          <button type="submit" class="sign-up button button-block" ng-class="{'pseudo-disabled':signUpForm.$invalid}">
+            {{'SUBMIT' | translate}}
+          </button>
+          <div class="alternative-action">
+            <a class="" ui-sref="app.login">
+              {{'HAVEACCOUNT' | translate}} <span>{{'LOGIN' | translate}}</span>
+            </a>
+          </div>
+        </form>
+      </div>
+    </div>
+    <section ng-include="'templates/login/partials/legal-notice.html'"></section>
+  </ion-content>
+</ion-view>

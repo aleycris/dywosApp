@@ -1,0 +1,44 @@
+<ion-modal-view class="retirement-modal">
+    <ion-header-bar>
+        <h1 class="title"></h1>
+        <div class="buttons">
+            <button ng-if="!isAndroid" class="button-icon icon ion-ios-close-outline" on-tap="hideRetirementModal()"></button>
+            <button ng-if="isAndroid" class="button-icon icon ion-android-close" on-tap="hideRetirementModal()"></button>
+        </div>
+    </ion-header-bar>
+
+    <ion-content class="center">
+        <div class="center padding-top">
+            <h2 ng-if="userHasAccount">{{retirementText.hasAccount}}</h2>
+            <h2 ng-if="!userHasAccount">{{retirementText.noAccount}}</h2>
+        </div>
+
+        <div class="center padding">
+            <button ng-if="userHasAccount"
+                    on-tap="downloadSworkit()"
+                    class="button button-large nexercise-orange uppercase white-text no-border new-button margin-15 uppercase">
+                {{'DWN_SWORKIT' | translate}}
+            </button>
+            <button ng-if="!userHasAccount"
+                    ui-sref="app.signup"
+                    on-tap="hideRetirementModal()"
+                    class="button button-large nexercise-orange uppercase white-text no-border new-button margin-15 uppercase">
+                {{'CREATE_A' | translate}}
+            </button>
+        </div>
+
+        <div ng-if="userHasAccount" ng-bind-html="retirementText.bodyTextAccount">
+        </div>
+        <div ng-if="!userHasAccount" ng-bind-html="retirementText.bodyTextNoAccount">
+        </div>
+
+        <div class="center padding-bottom padding-top">
+            <h4 class="orange-text" ng-click="launchFAQ()" translate>NEED_HELP</h4>
+        </div>
+
+        <div class="center padding-bottom">
+            <h4 class="grey-text" ng-click="dontAskAgain()" translate>DONT_REMIND</h4>
+        </div>
+
+    </ion-content>
+</ion-modal-view>

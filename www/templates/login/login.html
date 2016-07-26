@@ -1,0 +1,51 @@
+<ion-view class="dywos login" hide-nav-bar="true">
+  <!--<ion-nav-bar class="view-navigation">
+    <ion-nav-back-button class="button-clear">
+      <i class="ion-arrow-left-c"></i> {{'BACK' | translate}}
+    </ion-nav-back-button>
+    <ion-nav-title>
+      <span>{{'LOGIN' | translate}}</span>
+    </ion-nav-title>
+  </ion-nav-bar>-->
+  <ion-content class="">
+    <ion-spinner ng-if="data.loading" class="spinner-on-load"></ion-spinner>
+    <div class="row form-wrapper">
+      <div class="col">
+        <div class="padding center">
+          <img src="img/icon.png" />
+        </div>
+        <form name="login_form" class="" novalidate>
+          <div class="list">
+            <label class="item item-input">
+              <input type="email" placeholder="{{'LOGIN_USERNAME' | translate}}" name="email" ng-model="user.email" required>
+            </label>
+            <label class="item item-input">
+              <input type="password" placeholder="{{'LOGIN_PASSWORD' | translate}}" name="password" ng-model="user.password" required>
+            </label>
+            <br>
+            <div class="center">
+                <a ui-sref="app.forgot-password">{{'FORGOTPASS' | translate}}</a>
+                
+                <ion-toggle ng-model="remember" toggle-class="toggle-balanced">{{'REMEMBERME' | translate}}</ion-toggle>
+                
+                <button ng-click="loginEmail()" ng-class="{'pseudo-disabled':login_form.$invalid}" class="login button button-full button-assertive ink" ng-disabled="login_form.$invalid"> {{'LOGIN' | translate}}</button>
+
+                <p ng-if="error" class="message error">{{error}}</p>
+             <div>
+          </div>       
+          
+         
+          
+        </form>
+      </div>
+    </div>
+    <div class="padding  center social-login">
+        <button class="button button-small button-border icon-left ion-social-facebook button-positive"  ng-click="facebookSignIn()"></button>
+        <button class="button button-small button-border icon-left ion-social-googleplus button-assertive" ng-click="googleSignIn()"></button>
+    </div>
+    <div class="padding center">
+        <p> {{'NEEDACCOUNT' | translate}}</p>
+            <button  ui-sref="app.signup" class="login button button-calm ink">{{'SIGNUP' | translate}}</button>
+          </div>
+  </ion-content>
+</ion-view>

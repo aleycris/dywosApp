@@ -1,0 +1,125 @@
+@font-face {
+    font-family: 'Montserrat Regular';
+    src: url('../fonts/Montserrat-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Montserrat Bold';
+    src: url('../fonts/Montserrat-Bold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Oswald Medium';
+    src: url('../fonts/Oswald-Medium.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+p, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, a, body, html{
+    font-family: 'Montserrat Regular', Helvetica,sans-serif;
+    color: #7A8189
+}
+body{
+    background-color:black;
+}
+a {
+
+    text-decoration: none;
+    color: #7A8189
+}
+a:hover {
+
+    text-decoration: none;
+    color: #393C40
+}
+input {
+    color: white !important;
+}
+.title-image {
+    margin-top: 8px;
+    height: 27px;
+}
+.title{
+    text-align:center;
+    color: white;
+}
+.button {
+    border-radius: 30px;
+}
+.pane{
+    background-color: #F4F4F4;
+}
+.uppercase {
+    text-transform: uppercase; 
+}
+.pane{
+    background-color: #F4F4F4;
+}
+.center{
+    text-align:center;
+    margin: 0px auto;
+}
+.item {
+    color: #7A8189;
+}
+.radio-content {
+    background-color: #2196F3;
+    color: white;
+    text-align:center;
+    border-radius: 30px;
+}
+.radio-content:input[type="radio"]:checked
+{
+    background-color: #4779A7; 
+}
+.nav-bar-block, .bar {
+  background-color: inherit !important;
+}
+.dywos input:focus {
+    border-color: #1E81DC;
+    width: 90%;
+}
+
+.dywos input {
+    border-bottom: 1px solid rgb(221,221,221);
+    width: 90%;
+}
+
+/** LOGIN */
+.login, .signout {
+    background:url('../img/bg_login.png') no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+}
+.login::-webkit-input-placeholder {  
+   text-align: center;
+}
+
+.login:-moz-placeholder { /* Firefox 18- */
+   text-align: center;  
+}
+.login::-moz-placeholder {  /* Firefox 19+ */
+   text-align: center;  
+}
+.login:-ms-input-placeholder {  
+   text-align: center; 
+}
+.login input {
+    text-align: center;
+}
+.login.button.button-assertive {
+    background-color: transparent;
+    border: 4px solid #B71C1C;
+}
+.login.button.button-calm {
+    background-color: transparent;
+    border: 4px solid #2196F3;
+}
+.login.button.button-positive {
+    background-color: transparent;
+    border: 4px solid #3F51B5;
+}
+

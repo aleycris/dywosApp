@@ -1,0 +1,104 @@
+<ion-side-menus>
+
+  <ion-nav-bar class="bar-stable">
+    <ion-nav-back-button class="button-clear"><i class="icon button-icon ion-android-arrow-back"></i></ion-nav-back-button>
+  </ion-nav-bar>
+  <ion-pane drawer-menu-content>
+    <ion-nav-view name="menuContent"></ion-nav-view>
+  </ion-pane>
+
+  <drawer side="left" canDrag="true">
+    <ion-content class="header-menu">
+      <ion-list>
+        <ion-item nav-clear menu-and-drawer-close ng-click="clickHome()" class="clickable item-icon-left" ng-class="{'current': isItemActive('home')}">
+          <i class="icon ion-home"></i> {{'HOME_MENU' | translate}}
+        </ion-item>
+        <ion-item nav-clear menu-and-drawer-close href="#app/auth/welcome" class="clickable item-icon-left" ng-class="{'current': isItemActive('auth')}" ng-if="!authData">
+          <i class="icon ion-person"></i> {{'MYSWORKIT' | translate}}
+        </ion-item>
+        <ion-item nav-clear menu-and-drawer-close href="#app/auth/profile" class="clickable item-icon-left" ng-class="{'current': isItemActive('auth')}" ng-if="authData">
+          <i class="icon ion-person"></i> {{'MYSWORKIT' | translate}}
+        </ion-item>
+        <ion-item nav-clear menu-and-drawer-close href="#/app/settings" class="clickable item-icon-left" ng-class="{'current': isItemActive('sett')}">
+          <i class="icon ion-gear-b"></i> {{'SETTINGS_MENU' | translate}}
+        </ion-item>
+        <ion-item nav-clear menu-and-drawer-close href="#/app/exercises" class="clickable item-icon-left" ng-class="{'current': isItemActive('exer')}">
+          <i class="icon ion-clipboard"></i> {{'EXERCISE_MENU' | translate}}
+        </ion-item>
+        <ion-item nav-clear menu-and-drawer-close href="#/app/rewards" class="clickable item-icon-left" ng-class="{'current': isItemActive('rewa')}">
+          <i class="icon ion-ios-star"></i> {{'REWARDS_MENU' | translate}} <span class="badge badge-assertive menu-badge" ng-if="mPointsTotal > 0 && showPointsBadge && sessionMAvailable" style="margin-right:40px">{{mPointsTotal}}</span>
+        </ion-item>
+        <ion-item nav-clear menu-and-drawer-close href="#/app/reminders" class="clickable item-icon-left" ng-class="{'current': isItemActive('remi')}">
+          <i class="icon ion-android-notifications"></i> {{'REMIND_MENU' | translate}}
+        </ion-item>
+        <ion-item nav-clear menu-and-drawer-close href="#/app/help" class="clickable item-icon-left" ng-class="{'current': isItemActive('help')}">
+          <i class="icon ion-help-circled"></i> {{'HELP_MENU' | translate}}
+        </ion-item>
+        <ion-item nav-clear ng-click="downloadNexerciseMenu()" class="nexercise-menu">
+          {{'BY' | translate}} <img src="img/nexercise-banner.png"/> 
+          <ul><li></li><li></li><li></li></ul>
+        </ion-item>
+      </ion-list>
+    </drawer>
+</ion-side-menus>
+
+
+<script id="advanced-timing.html" type="text/ng-template">
+  <div class="modal timing-page modal-colors">
+    <ion-header-bar>
+      <button class="button button-clear button-primary" ng-click="closeModal()">{{'CLOSE' | translate}}</button>
+      <h1 class="title title-center">{{'ADVANCED' | translate}}</h1>
+      <button class="button button-clear button-primary" ng-click="resetDefaults()"  ng-if="toggleOptions.data">{{'RESET' | translate}}</button>
+    </ion-header-bar>
+    <ion-content has-bouncing="false">
+        <div class="list">
+          <div class="item">
+            <p>{{'LENGTH_TRANS' | translate}}:</p>
+            <div class="range range-energized">
+              <input class="timing-input" type="tel" integer value="{{advancedTiming.transitionTime}}" ng-model="advancedTiming.transitionTime">
+              <input type="range" integer name="volume" min="0" max="100" value="{{advancedTiming.transitionTime}}" ng-model="advancedTiming.transitionTime">
+            </div>
+          </div>
+          <div class="item">
+            <p>{{'LENGTH_EXERCISE' | translate}}:</p>
+        <div class="range range-energized">
+          <input class="timing-input" integer type="tel" value="{{advancedTiming.exerciseTime}}" ng-model="advancedTiming.exerciseTime">
+          <input type="range" name="volume" min="1" max="180" value="{{advancedTiming.exerciseTime}}" ng-model="advancedTiming.exerciseTime">
+        </div>
+      </div>
+      <ion-toggle ng-model="advancedTiming.restStatus" class="toggle-energized">
+        {{'REST' | translate}}:
+      </ion-toggle>
+      <div class="item" ng-class="{'disabled' : !advancedTiming.restStatus}">
+        <p>{{'REST_BREAK' | translate}}:</p>
+        <div class="range range-energized">
+          <input class="timing-input" integer type="tel" value="{{advancedTiming.breakFreq}}" ng-model="advancedTiming.breakFreq" ng-disabled="!advancedTiming.restStatus">
+          <input type="range" name="volume" min="1" max="25" value="{{advancedTiming.breakFreq}}" ng-model="advancedTiming.breakFreq" ng-disabled="!advancedTiming.restStatus">
+        </div>
+      </div>
+      <div class="item" ng-class="{'disabled' : !advancedTiming.restStatus}">
+            <p>{{'LENGTH_REST' | translate}}:</p>
+        <div class="range range-energized">
+          <input class="timing-input" integer type="tel" value="{{advancedTiming.breakTime}}" ng-model="advancedTiming.breakTime" ng-disabled="!advancedTiming.restStatus">
+          <input type="range" name="volume" min="1" max="120" value="{{advancedTiming.breakTime}}" ng-model="advancedTiming.breakTime" ng-disabled="!advancedTiming.restStatus">
+        </div>
+      </div>
+      <ion-toggle ng-model="userSettings.showNext" class="toggle-energized" ng-change="toggleNextExercise()" ng-if="!toggleOptions.data">
+        {{'SHOW_NEXT' | translate}}:
+      </ion-toggle>
+      <ion-toggle ng-model="advancedTiming.randomizationOption" class="toggle-energized padding-top" ng-if="toggleOptions.data">
+      {{'RANDOM' | translate}}:
+      </ion-toggle>
+      <ion-toggle ng-model="advancedTiming.autoPlay" class="toggle-energized padding-top" ng-if="!toggleOptions.data">
+      {{'AUTOPLAY' | translate}}:
+      </ion-toggle>
+      <div class="extra-options" ng-if="toggleOptions.data">
+        <p class="options-header">Try a new timing variation</p>
+        <a class="options-link" ng-click="enableHIIT()">HIIT (High Intensity Interval Training)</a>
+        <p class="options-description">30 Seconds of Exercise, 15 Second of Rest</p>
+        <a class="options-link" ng-click="enableTabata()">Tabata</a>
+        <p class="options-description">20 Seconds of Exercise, 10 Second of Rest</p>
+      </div>
+    </ion-content>
+  </div>
+</script>

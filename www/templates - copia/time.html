@@ -1,0 +1,101 @@
+<ion-view title="{{thisType | translate}}">
+  <ion-nav-buttons side="secondary">
+    <button class="button-icon icon ion-music-note" ng-if="urxAvailable" ng-click="launchURX()" ng-class="{'blue-text' : isToolTipTime}"></button>
+  </ion-nav-buttons>
+  <ion-content class="has-header full-length" id="time-screen" scrollbar-y="false">
+    <p class="page-instructions">{{'HOW_MANY' | translate}}</p>
+  	<div class="timer-box">
+      <div class="timer-center">
+        <div class="timer-text">
+          <input type="tel" integer value="{{timeSelected.minutes}}" ng-change="validateTime()" ng-focus="clearTime()" ng-blur="validateTime()" ng-model="timeSelected.minutes" id="minute-selection">
+          <h1 id="timer-minutes" class="uppercase">{{'MINUTES_SM' | translate}}</h1>
+        </div>
+      </div>
+      <progress-arc
+                size="{{size}}"
+                stroke="#dfdfdf"
+                stroke-width="5"
+                complete="calcComplete()"
+                background="#FF8614"
+                counter-clockwise="true"
+                ng-style="{'width': (size + 'px'), 'height' : (size + 'px')}"
+                class="animate-arc"
+                >
+      </progress-arc>
+      <div ng-repeat="minPoint in minuteArray track by $index" class="timer-touch" ng-style="{'top':(returnY(minPoint) + 'px'),'left':(returnX(minPoint) + 'px'),'width':((size/4) + 'px'),'height':((size/4) +'px')}" ng-class="{'flash': !scopeFirstOption}" ng-click="setMinuteTime(minPoint)"><h1 ng-style="{'margin-top':(((size/8)-28) + 'px'),'margin-left':(((size/8)-28) + 'px')}" >{{minPoint}}</h1></div>
+      <div class="time-controls minus-circle" ng-class="{'inactive': timeSelected.minutes <= defaultAdd}">
+        <div class="plus-minus-buttons" id="minus-button">
+          <a class="" ng-click="minusFive()"><i class="icon ion-minus"></i></a>
+        </div>
+      </div>
+      <div class="time-controls plus-circle" ng-class="{'inactive': timeSelected.minutes >= 57}">
+        <div class="plus-minus-buttons" id="plus-button">
+         <a class="" ng-click="plusFive()"><i class="icon ion-plus"></i></a>
+        </div>
+      </div>
+
+  	</div>  
+
+  	<div type="item-text-wrap" ng-click="customLength()" class="center choose-length uppercase">
+  	{{'CUSTOM_LENGTH' | translate}}
+  	</div>
+
+    <button class="button button-block nexercise-orange condense uppercase white-text no-border new-button margin-15 uppercase" ng-click="beginWorkout()">
+          {{'BG_WORKOUT' | translate}}
+    </button>
+    <button class="button button-block button-stable condense uppercase new-button" ng-if="!yogaSelection && !sevenMinuteSelection && true" ng-click="showTiming()">
+          {{'ADVANCED' | translate}}
+    </button>
+
+    <div class="list time-select-list width-control full-length">
+       <div class="seven-minute-options" ng-if="sevenMinuteSelection">
+        <div class="item item-divider seven-minute-options">
+         <h2 ng-click="alwaysTiming()">{{'SEVEN_TIME' | translate}}</h2>
+         <p>{{'SEVEN_SUB' | translate}}</p>
+       </div>
+        <div class="list seven-timing">
+          <div class="item">
+            <p>{{'LENGTH_EXERCISE' | translate}}:</p>
+            <div class="range range-energized">
+              <input class="timing-input" type="tel" integer value="{{sevenTiming.exerciseTimeSeven}}" ng-model="sevenTiming.exerciseTimeSeven">
+              <input type="range" integer name="volume" min="1" max="180" value="{{sevenTiming.exerciseTimeSeven}}" ng-model="sevenTiming.exerciseTimeSeven">
+            </div>
+          </div>
+          <div class="item">
+            <p>{{'LENGTH_PAUSE' | translate}}:</p>
+            <div class="range range-energized">
+              <input class="timing-input" type="tel" integer value="{{sevenTiming.transitionTimeSeven}}" ng-model="sevenTiming.transitionTimeSeven">
+              <input type="range" integer name="volume" min="0" max="100" value="{{sevenTiming.transitionTimeSeven}}" ng-model="sevenTiming.transitionTimeSeven">
+            </div>
+          </div>
+          <ion-toggle ng-model="sevenTiming.randomizationOptionSeven" class="toggle-energized">
+          {{'RANDOM' | translate}}:
+          </ion-toggle>
+        </div>
+       </div>
+      <div class="item item-text-wrap card" ng-if="!yogaSelection && !sevenMinuteSelection && true">
+        <p class="center" style="color:#333;margin:10px;font-size:16px">{{'ACTIVE_INTERVAL' | translate}}</p>
+         <p ng-if="advancedTiming.customSet">{{'EX_FOR' | translate}} {{advancedTiming.exerciseTime}} {{advancedTiming.exerciseTime == 1 ? ('EX_SEC' | translate) : ('EX_SECS' | translate)}} {{'EX_WITH' | translate}} {{advancedTiming.transitionTime}} {{advancedTiming.transitionTime == 1 ? ('EX_SEC' | translate) : ('EX_SECS' | translate)}} {{'EX_BETWEEN' | translate}} {{'EX_REST' | translate}} {{advancedTiming.breakTime}} {{advancedTiming.breakTime == 1 ? ('EX_SEC' | translate) : ('EX_SECS' | translate)}} {{'EX_AFTER' | translate}} {{advancedTiming.breakFreq}} {{advancedTiming.breakFreq == 1 ? ('EX_EX' | translate) : ('EX_EXS' | translate)}}. {{'EX_RAND' | translate}} {{advancedTiming.randomizationOption ? ('EX_ON' | translate) : ('EX_OFF' | translate)}}.</p>
+         <p ng-if="!advancedTiming.customSet">{{'EX_BACKUP' | translate}}</p>
+      </div>
+      <div class="item item-text-wrap" ng-if="sevenMinuteSelection">
+         <h2 ng-click="alwaysTiming()" style="color:#333">{{'ACTIVE_INTERVAL' | translate}}:</h2>
+         <p>{{'EX_FOR' | translate}} {{sevenTiming.exerciseTimeSeven}} {{sevenTiming.exerciseTimeSeven == 1 ? ('EX_SEC' | translate) : ('EX_SECS' | translate)}} {{'EX_WITH' | translate}} {{sevenTiming.transitionTimeSeven}} {{sevenTiming.transitionTimeSeven == 1 ? ('EX_SEC' | translate) : ('EX_SECS' | translate)}} {{'EX_BETWEEN' | translate}} {{'EX_RAND' | translate}} {{sevenTiming.randomizationOptionSeven ? ('EX_ON' | translate) : ('EX_OFF' | translate)}}.</p>
+      </div>
+      <div ng-if="yogaSelection" class="yoga-timings">
+        <div class="row">
+          <div class="col">
+            <p class="yoga-timings-header">{{'LENGTHPOSE' | translate}}</p>
+          </div>
+          <div class="col">
+            <div ng-if="isSunSalutation"><select ng-options="n for n in [] | range:4:120" ng-model="advancedTiming.sunSalutation"><option value="" ng-if="!advancedTiming.sunSalutation"></option></select></div>
+            <div ng-if="isFullSequence"><select ng-options="n for n in [] | range:4:120" ng-model="advancedTiming.fullSequence"><option value="" ng-if="!advancedTiming.fullSequence"></option></select></div>
+            <div ng-if="isRunnerYoga"><select ng-options="n for n in [] | range:4:120" ng-model="advancedTiming.runnerYoga"><option value="" ng-if="!advancedTiming.runnerYoga"></option></select></div>
+            <small>{{'EX_SECS' | translate}}</small>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p ng-if="isToolTipTime" style="margin:0px"><a data-tooltip="{{urxText}}"></a></p>
+  </ion-content>
+</ion-view>
